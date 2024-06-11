@@ -1,3 +1,58 @@
 = NGINX MODULES
 :toc: manual
 
+== Compiling and Installing
+
+=== Prerequisites
+
+[source, bash]
+.*centos/redhat*
+----
+yum update -y
+yum groupinstall "Development tools" -y
+yum install pcre-devel –y
+yum install zlib-devel –y
+yum install openssl-devel -y
+----
+
+[source, bash]
+.*debian/ubuntu*
+----
+sudo apt update
+sudo apt install build-essential
+sudo apt install libpcre3-dev zlib1g-dev libssl-dev
+----
+
+=== Compiling and Installing
+
+[source, bash]
+.*1. Define Install Prefix Dir*
+----
+INSTALL_PREFIX_DIR=/home/kylin
+----
+
+[source, bash]
+.*2a. NGINX Only*
+----
+./configure --prefix=$INSTALL_PREFIX_DIR/nginx --sbin-path=$INSTALL_PREFIX_DIR/nginx/nginx  --conf-path=$INSTALL_PREFIX_DIR/nginx/nginx.conf --pid-path=$INSTALL_PREFIX_DIR/nginx/nginx.pid --modules-path=$INSTALL_PREFIX_DIR/nginx/modules --error-log-path=$INSTALL_PREFIX_DIR/nginx/log/error.log --http-log-path=$INSTALL_PREFIX_DIR/nginx/log/access.log --with-http_ssl_module --with-stream
+
+make && make install
+----
+
+[source, bash]
+.**
+----
+
+----
+
+[source, bash]
+.**
+----
+
+----
+
+[source, bash]
+.**
+----
+
+----
