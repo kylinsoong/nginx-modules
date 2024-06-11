@@ -32,7 +32,7 @@ INSTALL_PREFIX_DIR=/home/kylin
 ----
 
 [source, bash]
-.*2a. NGINX Only*
+.*2. NGINX*
 ----
 ./configure --prefix=$INSTALL_PREFIX_DIR/nginx --sbin-path=$INSTALL_PREFIX_DIR/nginx/nginx  --conf-path=$INSTALL_PREFIX_DIR/nginx/nginx.conf --pid-path=$INSTALL_PREFIX_DIR/nginx/nginx.pid --modules-path=$INSTALL_PREFIX_DIR/nginx/modules --error-log-path=$INSTALL_PREFIX_DIR/nginx/log/error.log --http-log-path=$INSTALL_PREFIX_DIR/nginx/log/access.log --with-http_ssl_module --with-stream
 
@@ -40,19 +40,43 @@ make && make install
 ----
 
 [source, bash]
-.**
+.*3a. NGINX Hello World Module*
+----
+./configure --prefix=$INSTALL_PREFIX_DIR/nginx --sbin-path=$INSTALL_PREFIX_DIR/nginx/nginx  --conf-path=$INSTALL_PREFIX_DIR/nginx/nginx.conf --pid-path=$INSTALL_PREFIX_DIR/nginx/nginx.pid --modules-path=$INSTALL_PREFIX_DIR/nginx/modules --error-log-path=$INSTALL_PREFIX_DIR/nginx/log/error.log --http-log-path=$INSTALL_PREFIX_DIR/nginx/log/access.log --with-http_ssl_module --with-stream --with-compat --add-dynamic-module=../nginx-modules/nginx-hello-world-module
+
+make && make install
 ----
 
+== Dynamic Modules
+
+=== Hello World Module
+
+Hello World Module is demonstration-purpose, used to how to demonstrate how to create a module. 
+
+==== Configuration
+
+[source, bash]
+.*1. load_module*
+----
+load_module modules/ngx_http_hello_world_module.so;
 ----
 
 [source, bash]
-.**
+.*2. use the hello_word*
 ----
-
+http {
+    ...
+    server {
+        ...
+        location = /test {
+            hello_world;
+        }
+    }
+}
 ----
 
 [source, bash]
-.**
+.*3. test hello_word*
 ----
-
+nginx -t && nginx -s reload
 ----
